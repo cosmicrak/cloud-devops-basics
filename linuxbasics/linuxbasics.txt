@@ -1,0 +1,55 @@
+# Ubuntu First Commands
+
+## What I did today
+I successfully installed and opened Ubuntu using WSL on Windows.
+
+## My Ubuntu prompt
+My terminal showed something like:
+
+h@delli5:/mnt/c/WINDOWS/system32$
+
+This means:
+- h = my Ubuntu username
+- delli5 = my computer name
+- /mnt/c/WINDOWS/system32 = current folder location
+- $ = terminal is ready for commands
+
+## Important command learned
+
+### cd ~
+Moves to my Linux home folder.
+
+### pwd
+Shows current directory.
+
+### mkdir
+Creates a folder.
+
+### cd foldername
+Moves inside a folder.
+
+### touch
+Creates an empty file.
+
+### echo "text" > file.txt
+Writes text into a file.
+
+### cat file.txt
+Shows the content of a file.
+
+## Commands I practiced
+
+cd ~
+pwd
+mkdir linux-practice
+cd linux-practice
+touch first-file.txt
+echo "Hello from Ubuntu Linux" > first-file.txt
+cat first-file.txt
+
+## Output
+Hello from Ubuntu Linux
+
+## What I understood
+Ubuntu through WSL lets me practice Linux commands inside Windows.
+This is useful because cloud servers mostly run Linux.
