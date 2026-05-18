@@ -1,0 +1,70 @@
+# Linux File Operations
+
+## Why this matters
+Linux file commands are used in DevOps and cloud work to manage server files, logs, scripts, configs, and deployment folders.
+
+## Commands practiced
+
+### cp
+Copies files.
+
+Example:
+cp file1.txt copy-file1.txt
+
+### mv
+Moves or renames files.
+
+Example:
+mv file2.txt renamed-file2.txt
+
+### rm
+Deletes files.
+
+Example:
+rm temp.txt
+
+### nano
+Terminal text editor used to edit files.
+
+Save in nano:
+Ctrl + O
+Enter
+Ctrl + X
+
+### head
+Shows the first lines of a file.
+
+### tail
+Shows the last lines of a file. Useful for checking logs.
+
+### grep
+Searches text inside files.
+
+Example:
+grep "Linux" notes.txt
+
+### find
+Finds files by name or pattern.
+
+Example:
+find . -name "*.txt"
+
+## Commands I practiced
+mkdir linux-file-ops
+cd linux-file-ops
+touch file1.txt file2.txt notes.txt
+echo "Linux is important for DevOps" > notes.txt
+cp file1.txt copy-file1.txt
+mkdir backup
+cp notes.txt backup/
+mv file2.txt renamed-file2.txt
+mv renamed-file2.txt backup/
+rm temp.txt
+nano notes.txt
+head notes.txt
+tail notes.txt
+grep "Linux" notes.txt
+find . -name "*.txt"
+
+## What I understood
+Linux commands help manage files quickly through terminal. These commands are important for working with servers, logs, and deployments.
