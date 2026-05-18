@@ -1,0 +1,29 @@
+today I learnt about many Linux commands in Ubuntu. 
+here are some of the examples and their uses:
+# Linux Text Processing
+used to perform operations on text strings 
+
+## Why text processing matters
+
+## Commands practiced
+
+
+### grep: used to find specific word : grep "word" filename.ex
+
+### wc: used to count no. of lines and characters or may words and single lines : wc filename ( wc -l)
+
+### pipe |used to perform action on another command : command 1 | command 2
+
+### sort: used to sort the algo from bottom-up : sort 
+
+### uniq: used to print common text list
+
+### head : head is used to show only the starting of the file : head -n count filename.ext
+
+### tail: used to showcase only the last line of the file : tail filename
+
+### sort: arrange line alphabetically 
+
+### find .-name "*.ext"
+
+
