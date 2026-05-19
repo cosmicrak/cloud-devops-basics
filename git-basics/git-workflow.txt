@@ -1,0 +1,1 @@
+Hey there , I created my first .txt file on git using PowerShell , going to push it into git soon 
