@@ -1,0 +1,12 @@
+# Java compiled files
+*.class
+
+# VS Code settings
+.vscode/
+
+# Temporary files
+*.tmp
+*.log
+
+# Environment/secrets
+.env
