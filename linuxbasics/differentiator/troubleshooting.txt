@@ -1,0 +1,28 @@
+# Day 01 Filesystem Troubleshooting Note
+
+## Scenario
+A web application is not working on a Linux server.
+
+## First checks
+1. Check current location:
+pwd
+
+2. List files:
+ls -la
+
+3. Check configuration folder:
+ls /etc
+
+4. Check logs:
+ls /var/log
+
+5. Check nginx logs:
+ls /var/log/nginx
+
+## Root cause thinking
+Configuration problems are usually found in /etc.
+Runtime logs and errors are usually found in /var/log.
+User-created files are usually inside /home.
+
+## Interview explanation
+If a Linux service fails, I first identify where I am using pwd, inspect files using ls -la, then check configuration under /etc and logs under /var/log. This helps me avoid guessing and start troubleshooting from the correct system locations.
