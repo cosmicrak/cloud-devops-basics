@@ -1,0 +1,10 @@
+{
+    "log_file": "sample.log",
+    "info_count": 2,
+    "warning_count": 1,
+    "error_count": 2,
+    "error_lines": [
+        "ERROR Database connection failed",
+        "eRROR Payment service timeout"
+    ]
+}
