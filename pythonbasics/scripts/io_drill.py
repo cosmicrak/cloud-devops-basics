@@ -1,15 +1,22 @@
-error_count = 0
 from pathlib import Path
-log_file = Path("sample.log")
-if not log_file.exists():
-   print("error:sample.log not found")
-   exist(1)
+from datetime import datetime
 
-with open("sample.log", "r") as file:
+log_file= Path("sample.log")
+error_file= Path("error.log")
+report_file = Path("file_io.txt")
+error_count = 0
+if not log_file.exists():
+	print("Error: sample.log not found")
+	exit(1)
+with open(log_file, "r") as file, open(error_file, "w") as errors:
     for line in file:
         if "ERROR" in line:
-            print(f"found issue here: {line.strip()}")
+            errors.write(line)
             error_count += 1
 
-with open("result.txt", "w") as output:
-    output.write(f"Total errors found: {error_count}\n")
+with open(report_file, "a") as report:
+    report.write(f"{datetime.now()} - Total ERROR lines: {error_count}\n")
+
+print(f"Total ERROR lines: {error_count}")
+print("ERROR lines saved to errors_only.log")
+print("Summary appended to file_io_report.txt")
