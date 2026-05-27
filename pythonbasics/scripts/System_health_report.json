@@ -1,0 +1,56 @@
+{
+    "generated_at": "2026-05-27 07:01:19.977499",
+    "total_checks": 6,
+    "successful_checks": 5,
+    "failed_checks": 1,
+    "results": [
+        {
+            "name": "hostname",
+            "command": "hostname",
+            "status": "success",
+            "return_code": 0,
+            "output": "delli5",
+            "error": ""
+        },
+        {
+            "name": "current_user",
+            "command": "whoami",
+            "status": "success",
+            "return_code": 0,
+            "output": "h",
+            "error": ""
+        },
+        {
+            "name": "uptime",
+            "command": "uptime",
+            "status": "success",
+            "return_code": 0,
+            "output": "07:01:19 up 1 min,  1 user,  load average: 0.03, 0.02, 0.00",
+            "error": ""
+        },
+        {
+            "name": "disk_usage",
+            "command": "df -h",
+            "status": "success",
+            "return_code": 0,
+            "output": "Filesystem      Size  Used Avail Use% Mounted on\nnone            889M     0  889M   0% /usr/lib/modules/6.6.114.1-microsoft-standard-WSL2\nnone            889M  4.0K  889M   1% /mnt/wsl\ndrivers         232G  110G  123G  48% /usr/lib/wsl/drivers\n/dev/sdd       1007G  1.8G  954G   1% /\nnone            889M   32K  889M   1% /mnt/wslg\nnone            889M     0  889M   0% /usr/lib/wsl/lib\nrootfs          884M  2.8M  881M   1% /init\nnone            889M  500K  888M   1% /run\nnone            889M     0  889M   0% /run/lock\nnone            889M     0  889M   0% /run/shm\nnone            889M   80K  888M   1% /mnt/wslg/versions.txt\nnone            889M   80K  888M   1% /mnt/wslg/doc\nC:\\             232G  110G  123G  48% /mnt/c\nD:\\             342G  106M  342G   1% /mnt/d\nE:\\             342G  106M  342G   1% /mnt/e\nF:\\             248G  102M  248G   1% /mnt/f\ntmpfs           889M     0  889M   0% /tmp\nnone            1.0M     0  1.0M   0% /run/credentials/systemd-journald.service\nnone            1.0M     0  1.0M   0% /run/credentials/systemd-resolved.service\nnone            1.0M     0  1.0M   0% /run/credentials/getty@tty1.service\ntmpfs           178M   12K  178M   1% /run/user/1000",
+            "error": ""
+        },
+        {
+            "name": "memory_usage",
+            "command": "free -h",
+            "status": "success",
+            "return_code": 0,
+            "output": "total        used        free      shared  buff/cache   available\nMem:           1.7Gi       385Mi       1.0Gi       3.5Mi       461Mi       1.4Gi\nSwap:          1.0Gi          0B       1.0Gi",
+            "error": ""
+        },
+        {
+            "name": "fake_check",
+            "command": "fakecommand123",
+            "status": "command_not_found",
+            "return_code": null,
+            "output": "",
+            "error": "Command not found: fakecommand123"
+        }
+    ]
+}
