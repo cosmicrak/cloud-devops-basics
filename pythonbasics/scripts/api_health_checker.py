@@ -1,15 +1,18 @@
 import requests
-import json
+import sqlite3
 import logging
 from datetime import datetime
 from pathlib import Path
 
 
 logging.basicConfig(
-    filename="api_health_checker.log",
+    filename="api_health_checker_sqlite.log",
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
+
+
+DB_FILE = Path("health_checks.db")
 
 
 urls = [
@@ -19,28 +22,67 @@ urls = [
 ]
 
 
-report_file = Path("api_health_report.json")
+def create_database():
+    connection = sqlite3.connect(DB_FILE)
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS health_checks (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            url TEXT NOT NULL,
+            status TEXT NOT NULL,
+            status_code INTEGER,
+            error TEXT,
+            checked_at TEXT NOT NULL
+        )
+    """)
+
+    connection.commit()
+    connection.close()
+
+
+def save_result(result):
+    connection = sqlite3.connect(DB_FILE)
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        INSERT INTO health_checks (url, status, status_code, error, checked_at)
+        VALUES (?, ?, ?, ?, ?)
+    """, (
+        result["url"],
+        result["status"],
+        result["status_code"],
+        result["error"],
+        result["checked_at"]
+    ))
+
+    connection.commit()
+    connection.close()
 
 
 def check_url(url):
+    checked_at = str(datetime.now())
+
     try:
         response = requests.get(url, timeout=5)
 
         if response.status_code == 200:
-            logging.info(f"{url} is UP with status {response.status_code}")
+            logging.info(f"{url} is UP")
             return {
                 "url": url,
                 "status": "UP",
                 "status_code": response.status_code,
-                "error": None
+                "error": None,
+                "checked_at": checked_at
             }
 
-        logging.warning(f"{url} returned status {response.status_code}")
+        logging.warning(f"{url} returned unexpected status code {response.status_code}")
         return {
             "url": url,
             "status": "UNHEALTHY",
             "status_code": response.status_code,
-            "error": f"Unexpected status code: {response.status_code}"
+            "error": f"Unexpected status code: {response.status_code}",
+            "checked_at": checked_at
         }
 
     except requests.exceptions.Timeout:
@@ -49,7 +91,8 @@ def check_url(url):
             "url": url,
             "status": "DOWN",
             "status_code": None,
-            "error": "Request timed out"
+            "error": "Request timed out",
+            "checked_at": checked_at
         }
 
     except requests.exceptions.RequestException as error:
@@ -58,34 +101,57 @@ def check_url(url):
             "url": url,
             "status": "DOWN",
             "status_code": None,
-            "error": str(error)
+            "error": str(error),
+            "checked_at": checked_at
         }
 
 
-results = []
+def show_latest_results():
+    connection = sqlite3.connect(DB_FILE)
+    cursor = connection.cursor()
 
-for url in urls:
-    result = check_url(url)
-    results.append(result)
+    cursor.execute("""
+        SELECT url, status, status_code, error, checked_at
+        FROM health_checks
+        ORDER BY id DESC
+        LIMIT 5
+    """)
+
+    rows = cursor.fetchall()
+    connection.close()
+
+    print("\nLatest health check results:")
+
+    for row in rows:
+        url, status, status_code, error, checked_at = row
+        print(f"{checked_at} | {url} | {status} | {status_code} | {error}")
 
 
-summary = {
-    "generated_at": str(datetime.now()),
-    "total_urls": len(results),
-    "up_count": sum(1 for item in results if item["status"] == "UP"),
-    "down_count": sum(1 for item in results if item["status"] == "DOWN"),
-    "unhealthy_count": sum(1 for item in results if item["status"] == "UNHEALTHY"),
-    "results": results
-}
+def main():
+    create_database()
+
+    up_count = 0
+    down_count = 0
+    unhealthy_count = 0
+
+    for url in urls:
+        result = check_url(url)
+        save_result(result)
+
+        if result["status"] == "UP":
+            up_count += 1
+        elif result["status"] == "DOWN":
+            down_count += 1
+        else:
+            unhealthy_count += 1
+
+    print("API health check completed")
+    print(f"UP: {up_count}")
+    print(f"DOWN: {down_count}")
+    print(f"UNHEALTHY: {unhealthy_count}")
+
+    show_latest_results()
 
 
-with open(report_file, "w") as file:
-    json.dump(summary, file, indent=4)
-
-
-print("API health check completed")
-print(f"Total URLs: {summary['total_urls']}")
-print(f"UP: {summary['up_count']}")
-print(f"DOWN: {summary['down_count']}")
-print(f"UNHEALTHY: {summary['unhealthy_count']}")
-print(f"Report saved to {report_file}")
+if __name__ == "__main__":
+    main()
