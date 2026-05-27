@@ -1,0 +1,27 @@
+{
+    "generated_at": "2026-05-27 12:55:14.781189",
+    "total_urls": 3,
+    "up_count": 2,
+    "down_count": 1,
+    "unhealthy_count": 0,
+    "results": [
+        {
+            "url": "https://google.com",
+            "status": "UP",
+            "status_code": 200,
+            "error": null
+        },
+        {
+            "url": "https://github.com",
+            "status": "UP",
+            "status_code": 200,
+            "error": null
+        },
+        {
+            "url": "https://fake-domain-123456789.com",
+            "status": "DOWN",
+            "status_code": null,
+            "error": "HTTPSConnectionPool(host='fake-domain-123456789.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='fake-domain-123456789.com', port=443): Failed to resolve 'fake-domain-123456789.com' ([Errno 11001] getaddrinfo failed)\"))"
+        }
+    ]
+}
