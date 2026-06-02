@@ -10,3 +10,9 @@
 
 # Environment/secrets
 .env
+
+.aws/
+*.pem
+*accessKeys*
+credentials
+*.csv
